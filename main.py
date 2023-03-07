@@ -1,44 +1,39 @@
-from flask import Flask, jsonify
-# from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, jsonify;
+from flask_sqlalchemy import SQLAlchemy;
 
 
-app = Flask(__name__)
-# db = SQLAlchemy(app)
+app = Flask (__name__)
+app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.sqlite'
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///library.sqlite3'
+db = SQLAlchemy(app)
 
-@app.route("/", methods = ['GET'])
+# initiate an instance for the Flask class
+# argument expected is the name
+
+#this the decorator with the route that calls the funcion
+@app.route('/',methods=['GET']) 
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return "<p>Hello World! </p>"
 
 
-@app.route("/products")
-def get_products():
-    products = ['computer', 'books', 'bags']
+@app.route("/names")
+def get_names():
+    names = ['heidenz','hiedi','brandon']
     data = {
-        "modules" : 15,
-        "tutor" : "Gorrets",
-        "subject" : "databases",
+        "name" : "Debby",
+        "age":21,
+        "school":"WITI"
     }
-    return jsonify(
-        {
-            'products':products,
-            'data':data
-        }
-    )
+    return jsonify({"data":data},{"names":names})
 
-@app.route("/courseunits", methods=['GET'])
-def get_courseUnits():
-    courseunits={
-        "course 1":"python",
-        "course 2": "javascript",
-        "course 3":"datascience",
-            
-        }
-
-    return jsonify(courseunits)
+@app.route("/course_units")
+def course_units():
+    units = ['python','API','flask','json']
+    return jsonify({
+        "units":units
+        })
 
 
-if __name__=='main':
+
+if __name__ == '__name__':
     app.run(debug=True)
-     

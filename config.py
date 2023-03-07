@@ -1,23 +1,28 @@
 import os
+
+# base class
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
     @staticmethod
     def init_app(app):
         pass
 
-class DevelopmentConfig(Config):
-    DEBUG=True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:''@localhost/library_db'
 
+# sub classes of the base class
+class DevelopmentConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:''@localhost/library_ms' #we have the databse driver, the username, the location, and the name of the database
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get("TEST_DATABASE_URI")
 
-config={
-    'development':DevelopmentConfig,
-    'testing':TestingConfig,
-    'default':DevelopmentConfig
+# configuration object
+config = {
+    'development' : DevelopmentConfig,
+    'testing' : TestingConfig,
+    'default' : DevelopmentConfig
 }

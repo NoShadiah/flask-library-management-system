@@ -1,24 +1,20 @@
 from backend.db import db
 
-
-
 class User(db.Model):
-   __tablename__ = 'users'
    id = db.Column('user_id', db.Integer, primary_key = True)
-   user_type=db.Column(db.String(50))
-   name = db.Column(db.String(100))
+   name = db.Column(db.String(100), nullable=False)
    city = db.Column(db.String(50))  
-   address = db.Column(db.String(200))
-   password = db.Column(db.String(10))
+   addr = db.Column(db.String(200))
+   pin = db.Column(db.String(10))
+#    books = db.relationship('Book', backref= 'user')
 
 
+def __init__(self,id,name,city,addr,pin,books):
+        self.id=id
+        self.name=name
+        self.city=city
+        self.addr=addr
+        self.pin=pin
+        # self.books=books
 
-   def __init__(self,id, name, city, address,password):
-      self.id=id
-      self.name = name
-      self.city = city
-      self.address = address
-      self.password = password
-
-   
-
+# db.create_all()

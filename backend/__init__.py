@@ -1,11 +1,9 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from config import config
 from backend.db import db
 
 
-
-def create_app(config_name):
+def create_app(config_name): #Application Factory Funciton
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
@@ -14,8 +12,15 @@ def create_app(config_name):
 
     db.init_app(app)
 
-    return app
+    @app.route('/')
+    def greet():
+        return "Hallo there"
+    #import the blueprints
+    from backend.users.controllers import users
+    # from backend.books.controllers import books
 
-    
-    
-    
+    # #registering blue prints
+    app.register_blueprint(users)
+    # app.register_blueprint(books)
+
+    return app
